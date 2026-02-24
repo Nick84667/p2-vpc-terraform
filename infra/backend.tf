@@ -1,1 +1,9 @@
-
+terraform {
+  backend "s3" {
+    bucket         = "tfstate-eks-lab-nick84667-eu-central-1"
+    key            = "p2/network/terraform.tfstate"
+    region         = "eu-central-1"
+    dynamodb_table = "LockID"
+    encrypt        = true
+  }
+}
