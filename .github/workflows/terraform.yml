@@ -8,13 +8,14 @@ on:
         required: true
         default: "apply"
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   tf:
     runs-on: ubuntu-latest
     environment: prod
-    permissions:
-      id-token: write
-      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -22,8 +23,11 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::<ACCOUNT_ID>:role/<GITHUB_OIDC_ROLE>
+          role-to-assume: arn:aws:iam::132334512300:role/github-terraform-p2-vpc
           aws-region: eu-central-1
+
+      - name: Who am I? (debug)
+        run: aws sts get-caller-identity
 
       - uses: hashicorp/setup-terraform@v3
 
