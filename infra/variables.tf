@@ -22,4 +22,4 @@ variable "az_b" {
   type    = string
   default = "eu-central-1b"
 }
-terraform fmt -recursive
+
