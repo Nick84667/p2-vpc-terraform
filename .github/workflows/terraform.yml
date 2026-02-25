@@ -31,6 +31,14 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v3
 
+      
+      - name: Debug AWS identity
+        run: |
+              aws sts get-caller-identity
+              aws configure list
+              aws s3api get-bucket-location --bucket tfstate-eks-lab-nick84667-eu-central-1
+              aws s3api head-object --bucket tfstate-eks-lab-nick84667-eu-central-1 --key p2/network/terraform.tfstate || true
+
       - name: Terraform Init
         working-directory: infra
         run: terraform init
